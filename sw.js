@@ -1,67 +1,66 @@
 //install --> activate --> fetch
-const currentVersion = '.v3'
+const version ='v2.2';
 
 self.addEventListener('install', () => {
-    console.log('SW installed')
+    console.log('Installing...')
 });
 
-
-//manipulates CACHE API storage
-self.addEventListener('activate', (e) => {
-    console.log('SW activated')
     //1. list existing cache    caches.key().then((cacheNames) => {})
     //2. Delete old cache       return Promise.all(...caches.delete(...))
-    e.waitUntil(
-        caches.keys().then((cacheNames => {
-            //map thru cache names and delete old ones
-            const deletePromises = cacheNames.map((cacheName) => {
-                if (cacheName !== currentVersion){
-                    console.log('Clearing Old Cache')
-                    return caches.delete(cacheName)
+
+self.addEventListener('activate',() => {
+    console.log('SW Activated');
+
+    caches.keys()
+        .then((currentCaches) =>{
+            
+            const deletedPromise = currentCaches.map((existingCache) => {
+
+                if (existingCache!== version){
+                    console.log('Deleting Caches');
+                    return caches.delete(existingCache);
                 }
             });
-
-            return Promise.all(deletePromises)
-        }))
-    )
+            return Promise.all(deletedPromise)
+        })
 });
 
-
-//clones and stores repoionses from server
 self.addEventListener('fetch', (e) => {
-    console.log('SW...fetching')
-
-    //skip non-GET request made
-    if (e.request.method !== 'GET'){
-        return;
-    }
-
-
-    //intercept responses gotten from server
     e.respondWith(
 
-        fetch(e.request)
-        
-            .then(async (res) => {
-                const clonedResponse = res.clone();     //clone the response from server
+        fetch(e.request) 
+            .then(async (res) =>{
+                const clonedRes = res.clone();
 
-                if (res.status === 206){
-                    return res;         //skip partial caching
-                }
-
+                            
                 try{
-                    const newCache = await caches.open(currentVersion);
-                    await newCache.put(e.request, clonedResponse);
-                } catch(err){
-                    console.error(`No available request/response, ${err}`);
+                    //open cache with current version
+                    const newCache = await caches.open(version);
+                    await newCache.put(e.request, clonedRes)
+
+                }catch(err) {
+                    console.error(`Error occured while cloning: ${err}`)
                 }
 
                 return res
 
+            })
+            .catch(async (err) => {
+                console.error(`Error during request event`);
 
-            })
-            .catch((err) => {
-                console.log(`An error occured while trying to clone, ${err}`)
-            })
+                //fallback option for cached response
+
+                const cache = await caches.open(version);
+                const cachedResponse = await cache.match(e.request);
+
+                if (cachedResponse){
+                    return cachedResponse
+                } else{
+                    return caches.match('/index.html')
+                }
+            }),
+        
+        // const cache = await caches.open(version);
+
     )
 })
