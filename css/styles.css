@@ -450,7 +450,7 @@ input[name='search']{
     .off-screen-menu{
         background-color: black;
         color: rgb(146, 146, 146);
-        height: 100vh;
+        height: 100%;
         width: 100%;
         position: fixed;
         top: 0;
@@ -502,6 +502,7 @@ input[name='search']{
     .hamburger {
         display: flex;
         width: 40px;
+        position: relative;
         
     }
     
