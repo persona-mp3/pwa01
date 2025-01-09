@@ -1,0 +1,47 @@
+h2{
+    position: absolute;
+    align-self: center;
+    top: 20%;
+}
+
+h3{
+    position: absolute;
+    align-self: center;
+    top: 5%; 
+}
+form{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    top: 50%;
+    position: absolute;
+    transform: translateY(-50%);
+}
+
+label{
+    display: flex;
+    flex-direction: column;
+    padding: .3rem;
+    gap: .5rem;
+}
+
+label > p{
+    font-weight: bold;
+}
+
+input{
+    all:unset;
+    border: 1px solid;
+    padding: .24rem;
+    border-radius: 2px;
+}
+
+button{
+    all:unset;
+    border: 1px solid;
+    border-radius: 4px;
+    text-align: center;
+    align-self: center;
+    padding: .7rem
+}
