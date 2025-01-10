@@ -1,3 +1,7 @@
+const hamMenu = document.querySelector('.hamburger-menu');  
+const offScreenMenu = document.querySelector('.off-screen-menu');
+const signupButton = document.getElementById('signupBtn');
+
 const form = document.querySelector('form');
 const message = function(x){return `Thank you ${x}`};
 const userName = document.getElementById('username')
@@ -24,6 +28,13 @@ async function sendData(){
         console.log(responseData)
     }catch(e){console.error(e)}
 }
+
+hamMenu.addEventListener('click', () => {
+
+    hamMenu.classList.toggle('active');
+    offScreenMenu.classList.toggle('active')
+})
+
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();

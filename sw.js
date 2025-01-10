@@ -1,12 +1,8 @@
-//install --> activate --> fetch
 const version ='v2.2';
 
 self.addEventListener('install', () => {
     console.log('Installing...')
 });
-
-    //1. list existing cache    caches.key().then((cacheNames) => {})
-    //2. Delete old cache       return Promise.all(...caches.delete(...))
 
 self.addEventListener('activate',() => {
     console.log('SW Activated');
@@ -59,8 +55,5 @@ self.addEventListener('fetch', (e) => {
                     return caches.match('/index.html')
                 }
             }),
-        
-        // const cache = await caches.open(version);
-
     )
 })

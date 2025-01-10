@@ -31,5 +31,3 @@
 //     e.preventDefault()
 //     sendData()
 // })
-
-

@@ -32,11 +32,11 @@
         <div class="off-screen-menu">
             <ul>
                 <input type="text" placeholder="Search" class="ham-search">
-                <li class="ham-link">Shop</li>
-                <li class="ham-link">Lookbook</li>
-                <li class="ham-link">Library</li>
-                <li class="ham-link">About</li>
-                <li class="ham-link">Join us</li>
+                <a href="shop.html" class="ham-link">Shop</a>
+                <a href="lookbook.html" class="ham-link">Lookbook</a>
+                <a href="archive.html" class="ham-link">Library</a>
+                <a href="#about" class="ham-link">About</a>
+                <a href="sign-up.html" class="ham-link">Join us</a>
             </ul>
         </div>
 
@@ -63,7 +63,7 @@
                 <div class="button-container">
 
                     <a class="nav-link sign-up" id="signupBtn" href="sign-up.html" >Sign up</a>
-                    <button class="nav-link log-in" id="loginBtn">Log in</button>
+                    <button class="nav-link log-in" id="loginBtn">See more</button>
                 </div>
             </div>
             <div class="hero-image-container">
@@ -153,6 +153,7 @@
     <script>
         const signupBtn = document.getElementById('signupBtn');
         const loginBtn = document.getElementById('loginBtn');
+        
 
         signupBtn.addEventListener('click', () => {
             window.location.href = '/signup'
